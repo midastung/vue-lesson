@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{count}}</h1>
+        <button @click="add2">+step</button>
+    </div>
+
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                count: 0,
+                step: 1,
+                add: 2,
+                // 命名時小心不要和函式撞名
+            },
+            methods: {
+                //不能宣告為箭頭函式，因為會變成global物件，所有變數皆非此實例
+                add() {
+                    this.count += this.step;
+                    this.step += 1;
+                },
+                add2() {
+                    this.add();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

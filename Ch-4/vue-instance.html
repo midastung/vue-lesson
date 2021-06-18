@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>創建Vue 實例</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app"></div>
+    <!-- <div id="app">{{msg}}</div> 無法顯示-->
+
+
+
+    <script>
+        //mount
+        const vm = new Vue({
+            el: '#app',  // CSS選擇器
+            // el: document.querySelector('#app'),   JS選擇器
+            template: "<div><h2>{{msg}}</h2></div>",  //字串，直接忽視html的內容
+            data: {
+                msg: 'hello'
+            }
+        });
+
+        // vm.$mount('#app');
+        // vm.$mount(document.querySelector('#app'));
+    </script>
+</body>
+
+</html>

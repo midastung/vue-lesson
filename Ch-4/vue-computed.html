@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="number" v-model="a" />
+        +
+        <input type="number" v-model="b" />
+        =
+        <input type="number" v-model="c" />
+        <br>
+        {{a}} + {{b}} = {{c}}
+    </div>
+
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                a: 0,
+                b: 0,
+            },
+            computed: {
+                //為計算屬性
+                //也不能使用箭頭函式
+                // c() {
+                //     return parseInt(this.a, 10) + parseInt(this.b, 10);
+                // },
+                c: {
+                    get() {  //取值
+                        return parseInt(this.a, 10) + parseInt(this.b, 10);
+                    },
+                    set(val) {  //設定值
+                        this.b = parseInt(val, 10) - parseInt(this.a, 10);
+                    },
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

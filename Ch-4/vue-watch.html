@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <input v-model="value"> -->
+        <!-- <span>{{valuex2}}</span> -->
+        <!-- <br> -->
+        <input v-model="input.msg">
+        <!--
+        <br>
+        <input type="number" v-model="a" />
+        +
+        <input type="number" v-model="b" />
+        =
+        <input type="number" v-model="c" /> -->
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                value: 0,
+                input: {
+                    msg: ''
+                },
+                a: 0,
+                b: 0,
+                c: 0,
+            },
+            computed: {
+                // valuex2() {
+                //     return parseInt(this.value, 10) * 2;
+                // }
+            },
+            watch: {
+                // value(newVal, oldVal)
+                // value(val, oldVal) {
+                //     console.log(`${oldVal} -> ${val}`);
+                // },
+                // valuex2(val, oldVal) {
+                //     console.log(`${oldVal} -> ${val}`);
+                // },
+
+                //物件用法
+                input: {
+                    //1.建立 handler函式
+                    //2. immediate屬性
+                    //3. deep 是用來偵測陣列或物件，裡面值有無被改變
+                    // handler(val, oldVal) {
+                    //     console.log(`${oldVal.msg} -> ${val.msg}`);
+                    //     console.log(val === oldVal);
+                    // },
+                    // deep: true,
+                }
+
+                //效能不好，因為要偵聽兩個，應該用computed
+                // a(val) {
+                //     this.c = parseInt(val, 10) + parseInt(this.b, 10);
+                // },
+                // b(val) {
+                //     this.c = parseInt(val, 10) + parseInt(this.a, 10);
+                // }
+            },
+        });
+    </script>
+
+</body>
+
+</html>
