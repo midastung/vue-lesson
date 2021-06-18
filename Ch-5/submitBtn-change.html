@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <style>
+        #app {
+            text-align: center;
+        }
+
+        .submit {
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 4px 8px;
+        }
+
+        .submit.disabled {
+            background: #aaa;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="text">
+        <button :class="btnClass">Submit</button>
+    </div>
+
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                text: '',
+                //綁定元素可以字串、物件、陣列
+                btnClass: [
+                    'submit',
+                    'disabled'
+                ]
+            },
+            computed: {
+                btnClass() {
+                    //基礎寫法
+                    // if (this.text.length === 0) {
+                    //     return 'submit disabled';
+                    // } else {
+                    //     return 'submit';
+                    // }
+
+                    //物件寫法
+                    // if(this.text.length === 0){
+                    //     return {
+                    //         submit: true,
+                    //         disabled: true,
+                    //     }
+                    // }else{
+                    //     return {
+                    //         submit: true,
+                    //         disabled: false,
+                    //     }
+                    // }
+
+                    //精簡寫法
+                    // return {
+                    //     submit: true,
+                    //     disabled: this.text.length === 0
+                    // }
+                },
+            }
+        });
+    </script>
+
+</body>
+
+</html>

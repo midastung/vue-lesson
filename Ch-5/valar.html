@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <style>
+        #app {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <h1 :style="h1style">Valar Morghulis</h1>
+        <button @click="shrink">OK</button>
+    </div>
+
+    <script>
+        const commonHeadStyle = {
+            ///在物件裏的css要用駝峰式命名
+            //不然寫font-size會以為你要用「減法」
+            fontSize: '20px',
+            color: 'red',
+        };
+        const greenWord = {
+            color: 'green',
+        }
+        new Vue({
+            el: "#app",
+            //字串寫法
+            // data:{
+            //     h1style: 'color: red',
+            // }
+
+            //物件寫法
+            // data:{
+            // h1style:{
+            //     color: 'red',
+            // },
+            //},
+
+            //陣列包物件寫法
+            // data: {
+            //     h1style: [
+            //         commonHeadStyle,
+            //         greenWord,
+            //     ]
+            // }
+
+            data: {
+                // h1style: {
+                //     // fontSize: '40px',
+                //     size: 40,
+                // }
+                size: 40,
+            },
+            //精簡做法
+            computed: {
+                h1style() {
+                    return {
+                        fontSize: `${this.size}px`
+                    }
+                }
+            },
+            methods: {
+                shrink() {
+                    //傳統作法
+                    // const size =
+                    //     parseInt(this.h1style.fontSize.replace('px'), 10);
+                    // this.h1style.fontSize = `${size - 1}px`
+
+                    this.size--;
+
+                },
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>
