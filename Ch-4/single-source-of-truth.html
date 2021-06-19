@@ -20,7 +20,7 @@
             <span>b</span>
         </label>
         <label>
-            <input type="checkbox" v-model="c">
+            <input type="checkbox" v-model="d">
             <span>c</span>
         </label>
 
@@ -60,11 +60,11 @@
             data: {
                 a: false,
                 b: false,
-                c: false,
+                d: false,
             },
             computed: {
                 selected() {
-                    return ['a', 'b', 'c'].filter(item => this[item])
+                    return ['a', 'b', 'd'].filter(item => this[item])
 
                     // const result = [];
                     // if (this.a) result.push('a');

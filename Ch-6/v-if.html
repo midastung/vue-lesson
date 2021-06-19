@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <style>
+        #app {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <input type="checkbox" v-model="checked">
+        <template v-if="checked">
+            <h1>跳樓大拍賣</h1>
+            <h2>跳樓大拍賣</h2>
+            <h3>跳樓大拍賣</h3>
+        </template>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                checked: false,
+            },
+        });
+    </script>
+</body>
+
+</html>
