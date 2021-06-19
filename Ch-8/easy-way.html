@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<style>
+    .box {
+        display: inline-block;
+        min-width: 80px;
+        min-height: 80px;
+        padding: 40px;
+        border: 2px solid red
+    }
+</style>
+
+<body>
+    <div id="app">
+        <h1>{{count}}</h1>
+        <button @click.once="count+=1">+1</button>
+        <br>
+        <div class="box" @click="msg='C'">
+            <div class="box" @click="msg='B'">
+                <!-- <div class="box" @click="msg='A'"></div> -->
+                <div class="box" @click="setA"></div>
+                <!-- <div class="box" @click.stop="msg='A'"></div> -->
+                <!-- <div class="box" @click.self="msg='A'"></div>  -->
+            </div>
+        </div>
+        <h1>{{msg}}</h1>
+    </div>
+
+
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                msg: '',
+                count: 0,
+            },
+            methods:{
+                setA(evt){
+                    //不要把點擊的事件傳上去
+                    evt.stopPropagation();
+                    this.msg='A'
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
