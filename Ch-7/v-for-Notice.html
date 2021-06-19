@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <ul>
+            <!-- <li v-for="num in nums">{{num}}</li> -->
+            <li v-for="(num, key) in nums">{{key}}: {{num}}</li>
+        </ul>
+        <button @click="action">click</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                // nums: [1, 2, 3, 4, 5],
+                // nums: [5, 3, 1, 2, 4],
+
+                nums: {
+                    x:10,
+                    y:20,
+                },
+            },
+            methods: {
+                action() {
+                    // this.nums.push(this.nums.length+1)  //從後面加入
+                    // this.nums.pop();    //從後面跑出來
+                    // this.nums.shift(); //從前面跑出來
+                    // this.nums.unshift(0); //從前面加入
+                    // this.nums.splice(2, 2,9,8,7)  //splice(index, 刪除幾個, ...塞入新內容)
+                    //this.nums.sort(); //依順序排列
+                    //this.nums.reverse(); //反向排序陣列
+
+                    //filter過濾器，依函式判斷來return布林值，而「產生新陣列」並「重新指定給nums」
+                    // this.nums = this.nums.filter(elm => elm%2===0)
+
+                    //無法更改陣列內容 :
+
+                    // this.nums[0] = 10;
+                    //想要修改陣列單一內容..
+                    // this.nums.splice(3,2);
+
+                    // this.nums.length = 3
+                    //想要修改陣列長度..
+                    // this.nums.splice(2);  //splice(數字)，從頭刪到該指定"數字"之前
+                    // [1,2,3,4,5] ->  [1,2]
+
+                    //「新增」物件屬性
+                    //沒反應...無法這樣指定新的值
+                    // this.nums.z = 30
+
+                    //新增物件屬性，用以下方法
+                    // this.$set(this.nums, 'z', 30)
+                    Vue.set(this.nums, 'z', 999)
+
+                    //「修改」物件屬性
+                    // this.nums.x = 99
+
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

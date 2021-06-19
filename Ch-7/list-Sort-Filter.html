@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <ul>
+            <li v-for="num in nums">{{num}}</li>
+        </ul>
+        <button @click="reverse">Reverse</button>
+        <button @click="all">All</button>
+        <button @click="org">Original</button>
+        <button @click="sort">Sort</button>
+        <button @click="even">Even</button>
+    </div>
+
+
+    <script>
+        const orgNums = [5, 1, 4, 3, 2, 6, 7, 8, 9];
+        new Vue({
+            el: '#app',
+            data: {
+                nums: [5, 1, 4, 3, 2, 6, 7, 8, 9],
+            },
+            methods: {
+                reverse() {
+                    this.nums.reverse();
+                },
+                all() {
+                    this.nums = orgNums;
+                },
+                org() {
+                    this.nums = orgNums;
+                },
+                sort() {
+                    this.nums = orgNums.sort() //會修改本來的陣列排序，再也改不回來
+                    //正確做法:
+                    //this.nums = orgNums.slice().sort(); //slice會拷貝一份陣列，因此原本陣列不會被更動
+                },
+                even() {
+                    this.nums = orgNums.filter(num => num % 2 === 0);
+                },
+            }
+        });
+    </script>
+
+</body>
+
+</html>
