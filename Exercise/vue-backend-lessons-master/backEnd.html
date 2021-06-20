@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <form @submit="submit">
+            <label>標題</label>
+            <input type="text" v-model="title">
+            <br>
+
+            <label>URl</label>
+            <input type="text" v-model="url">
+            <br>
+
+            <label>講師</label>
+            <select v-model="teacher">
+                <option disabled value="">選擇老師</option>
+                <option v-for="teacher in teachers" :value="teacher">{{teacher}}</option>
+            </select>
+            <br>
+
+            <label>完成</label>
+            <input type="checkbox" v-model="completed">
+            <br>
+
+            <label>圖片</label>
+            <input type="file" accept="image/*" @change="fileSelected" />
+            <br>
+            <img v-if="image" :src="image" width="200" />
+
+            <button type="submit">Submit</button>
+        </form>
+        <hr>
+        <div v-for="lesson in lessons">
+            <img :src="lesson.image" width="100">
+            <a :href="lesson.url">
+                <span>{{lesson.title}}</span>
+            </a>
+            <span>{{lesson.teacher}}</span>
+            <span>{{lesson.completed == 'true'?'完成':'未完成'}}</span>
+        </div>
+    </div>
+
+
+    <script>
+        const API = 'http://localhost:8081';
+        new Vue({
+            el: '#app',
+            data: {
+                title: '',
+                url: '',
+                teachers: ['Scars', 'Eason', 'Jack', 'Claire'],
+                teacher: '',
+                completed: false,
+                image: '',
+                lessons: [],
+            },
+            methods: {
+                fileSelected(evt) {
+                    const file = evt.target.files.item(0);
+                    const reader = new FileReader();
+                    reader.addEventListener('load', this.imageLoaded);
+                    reader.readAsDataURL(file);
+                },
+                imageLoaded(evt) {
+                    this.image = evt.target.result;
+                },
+                submit() {
+                    $.post('http://localhost:8081', {
+                        title: this.title,
+                        url: this.url,
+                        teacher: this.teacher,
+                        completed: this.completed,
+                        image: this.image,
+                    }).then(() => {
+                        title: this.title = " ";
+                        url: this.url = " ";
+                        teacher: this.teacher = " ";
+                        completed: this.completed = " ";
+                        image: this.image = " ";
+                        this.loadLessons();
+                    })
+                },
+                loadLessons() {
+                    $.get(API).then(lessons => this.lessons = lessons);
+                }
+            },
+            mounted() {
+                //Promise
+                this.loadLessons();
+            },
+        });
+    </script>
+
+</body>
+
+</html>
