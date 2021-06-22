@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 沒有加trim此修飾符，會將輸入空白的部分 -->
+        <!-- <input type="text" v-model="text" /> -->
+        <input type="text" v-model.trim="text" />
+        <h1>[{{text}}]</h1>
+    </div>
+
+
+    <!-- modifier -->
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                msg: '',
+                num: 0,
+                text: '',
+            },
+            methods: {
+
+            }
+        });
+    </script>
+
+</body>
+
+</html>

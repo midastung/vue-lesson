@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 要有動態綁定才會變成 data設定的內容 -->
+       <!-- <post :text="text"></post> -->
+       <!-- <post v-for="text in posts" :text="text"></post> -->
+
+       <!-- <post  v-for="post in posts" :text="post.text" :author="post.author"></post> -->
+
+       <!-- 全部綁定有更為簡潔的做法：v-bind -->
+       <!-- <post  v-for="post in posts" v-bind="post"></post> -->
+    </div>
+
+
+    <script>
+        Vue.component('my-component', {
+
+        });
+
+        new Vue({
+            el: '#app',
+            data: {
+                // text: 'hello',
+                // posts: ['hello', 'world']
+                posts: [
+                    {text: 'hello', author:'Midas'},
+                    {text: 'world', author:'Jack'}
+                ]
+            },
+            components: {
+                post: {
+                    props: ['text', 'author'],
+                    // template: '<div>{{text}}</div>'
+                    template: '<div>{{author}}: {{text}}</div>'
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-component></my-component>
+        <my-component2></my-component2>
+    </div>
+    <br>
+    <div id="app2">
+        <my-component></my-component>
+    </div>
+
+    <script>
+        //以下為Component幾點規範：
+        // 1. component命名要遵守W3C ( 全小寫, dash分開 )
+        // 2. component要寫在new Vue之前
+
+        //Global Component
+        Vue.component('my-component', {
+            //在template裏定義HTML的內容
+            template: '<div>My Component</div>',
+        });
+
+        new Vue({
+            el: '#app',
+            //Local Component
+            components:{
+                'my-component2':{
+                    template: '<div>My Component2</div>'
+                }
+            }
+        });
+
+        new Vue({
+            el: '#app2',
+            
+        });
+    </script>
+    
+</body>
+</html>

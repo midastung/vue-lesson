@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <todo-list></todo-list>
+    </div>
+    <br>
+
+
+    <script>
+        Vue.component('todo-item', {
+            props: ['label'],
+            template: `
+                <li>{{label}}</li>
+            `,
+        });
+        Vue.component('todo-input', {
+            data() {
+                return {
+                    text: '',
+                };
+            },
+            methods: {
+                submit() {
+                    //$emit 發出一個事件，名稱是“input”
+                    this.$emit('input', this.text);
+                    this.text = '';
+                }
+            },
+            template: `
+                <form @submit.prevent="submit">
+                    <input type="text" v-model="text">
+                    <button type="submit">Submit</button>
+                </form>
+            `,
+        });
+        Vue.component('todo-list', {
+            data() {
+                return {
+                    todos: ['a', 'b', 'c'],
+                };
+            },
+            methods: {
+                addTodo(text) {
+                    this.todos.push(text);
+                },
+            },
+            // :
+            // @ 接收一個事件叫做“input”
+            template: `
+                <div>
+                    <todo-input @input="addTodo"></todo-input>
+                    <ul>
+                        <todo-item v-for="todo in todos" :label="todo"></todo-item>
+                    </ul>
+                </div>
+            `,
+
+        });
+
+        new Vue({
+            el: '#app',
+        });
+    </script>
+
+</body>
+
+</html>

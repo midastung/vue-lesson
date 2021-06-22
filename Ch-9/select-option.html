@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <select v-model="years" multiple>
+            <!-- year初始值為空，因此v-model會先挑選value為空的option -->
+            <option disabled value="">Select Year</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+        </select>
+
+        <!-- <select v-model="selectedYear">
+            <option v-for="year in years" :value="year">{{year}}</option>  
+        </select> -->
+
+        <!-- <select v-model="selectedMonth"> -->
+        <!-- 月份 可以用v-for 生options -->
+        <!-- <option v-for="month in 12" :value="month">{{month}}</option> 
+        </select> -->
+
+        <!-- <select v-model="selectedGender">
+            <option v-for="option in options" :value="option.value">
+                {{option.text}}
+            </option>
+        </select> -->
+
+        <h1>{{years}}</h1>
+    </div>
+
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                //初始值
+                // year: '',
+
+                //也可以用在陣列
+                years: [],
+
+                // years: [2015, 2016, 2017],
+                selectedYear: 2015,
+
+                selectedMonth: 1,
+
+                options: [
+                    { value: 1, text: "Male" },
+                    { value: 2, text: "Female" },
+                    { value: 3, text: "Others" },
+                ],
+                selectedGender: 1,
+
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

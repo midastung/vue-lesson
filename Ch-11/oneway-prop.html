@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{count}}</h1>
+        <button @click="count+=1">Click</button>
+
+        <counter :count="count"></counter>
+    </div>
+
+
+    <script>
+        //單向數據流，上層傳給下層
+        new Vue({
+            el: "#app",
+            data: {
+                count: 10,
+            },
+            components: {
+                counter: {
+                    props: ['count'],
+                   
+                    computed: {
+                        countDoubled() {
+                            return this.count*2;
+                        }
+                    },
+                    template: `
+                        <div>
+                            <h2>{{countDoubled}}</h2>
+                           
+                        </div>
+                    `
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

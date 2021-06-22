@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 檔案上傳無法用v-model，因此只能建立一個偵聽函式(fileSelected) -->
+        <input type="file" @change="fileSelected" />
+        <!-- base64編碼可以直接丟給src，讓他做顯示 -->
+        <img v-if="image" :src="image" width="200" />
+        <button @click="upload">上傳</button>
+    </div>
+
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                //放入bae64的容器
+                image: '',
+                file: null,
+            },
+            methods: {
+                //evt 為 @change事件
+                fileSelected(evt) {
+                    //target是指input，且type為file，則會有files屬性，而我只要上傳單一檔，因此寫item(0)
+                    this.file = evt.target.files.item(0);
+                    //console.log(file) //會顯示上傳圖片之資訊
+
+                    //建立FileReader
+                    const reader = new FileReader();
+                    //利用FileReader 監聽 load事件，當load完成後呼叫this.imageLoaded
+                    reader.addEventListener('load', this.imageLoaded);
+
+                    //DataURL是base64編碼，可以將任何資料轉成英文和數字
+                    //而我們需要有轉譯器“readAsDataURL”，將上傳圖片變成base64編碼
+                    reader.readAsDataURL(this.file);
+                },
+                imageLoaded(evt) {
+                    //若load事件完成後，將轉譯好的base64值，指定給this.image這個空字串變數
+                    this.image = evt.target.result;
+                },
+
+                upload(){
+                    //上傳寫法1
+                    const form = new FormData();
+                    form.append(this.file, this.file.name);
+
+                    //上傳寫法2
+                    axios.post('upload', {image: this.image}) ; 
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

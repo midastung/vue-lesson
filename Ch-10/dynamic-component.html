@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- 透過條件判斷，來決定出現什麼組件 -->
+    <div id="app">
+        <!-- 用click事件進行更改content內容 -->
+        <button @click="content='lessons'">Lessons</button>
+        <button @click="content='apply'">Apply</button>
+        <br>
+
+        <!-- component元素透過 :is="組件名稱", 可以將組件變成動態 -->
+        <component :is="content"></component>
+    </div>
+
+    <script>
+        // 預先定義好組件
+        Vue.component('apply', {
+            template: `
+                <form>
+                    <textarea></textarea>
+                    <br>
+                    <button>Apply</button>
+                </form>
+            `,
+        });
+
+        Vue.component('lessons', {
+            template: `
+                <ul>
+                    <li>Vue 課程</li>
+                    <li>React 課程</li>
+                    <li>Angular課程</li>
+                </ul>
+            `,
+        });
+
+        new Vue({
+            el: '#app',
+            data: {
+                content: 'lessons',
+            }
+        });
+    </script>
+
+</body>
+
+</html>

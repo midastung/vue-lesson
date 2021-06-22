@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app"> 
+        <!-- 如果沒有:start，props會將其視為字串 -->
+        <counter start="10"></counter>
+    </div>
+
+
+    <script>
+        //props的驗證
+        //驗證出props為字串，但是我要的是數字
+        Vue.component('counter',{
+            //props驗證是在組件建立之前，因此在default, validator不能使用this.xxx變數
+            props: {
+                //指定Number型態給props，因此即便傳的資料為自傳，後台會報錯
+                // start: Number,
+                start: {
+                    type: Number,
+                    default(){
+                        return app.getSetting();
+                    },
+                    validator(value){
+                        return value <= 10;
+                    }
+                }
+            },
+            data(){
+                return{
+                    count: this.start,
+                }
+            },
+            template: `
+                <div>
+                    <h1>{{count}}</h1>
+                    <button @click="count+=1">+</button>
+                </div>
+            `
+        });
+
+
+        new Vue({
+            el: '#app',
+        });
+    </script>
+
+</body>
+
+</html>
