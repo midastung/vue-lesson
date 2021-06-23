@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+        <my-count :count="count"></my-count>
+        <my-button @click.native='count+=1'></my-button>
+        <!-- <my-count></my-count>
+        <my-button></my-button> -->
+
+    </div>
+
+
+    <script>
+        //透過宣告共用的event bus，當需要偵聽其他組件時，偵聽bus
+        const bus = new Vue();
+        Vue.component('my-count', {
+            data() {
+                return {
+                    count: 0,
+                }
+            },
+            // props: ['count'],
+            template: `
+                <h1>{{count}}</h1>
+            `,
+            mounted() {
+                //偵聽'add'事件
+                bus.$on('add', () => {
+                    this.count += 1;
+                })
+            }
+        });
+
+        Vue.component('my-button', {
+            template: `
+                <button @click="click">+1</button>
+            `,
+            methods: {
+                click() {
+                    bus.$emit('add')
+                }
+            }
+        });
+
+
+        new Vue({
+            el: '#app',
+          
+        });
+
+        //vuex 跨組件溝通
+        // event bus
+    </script>
+
+</body>
+
+</html>

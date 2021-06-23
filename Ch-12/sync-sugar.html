@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <my-counter :david-count="midasCount" @update="setOuterCount"></my-counter> -->
+        <my-counter :david-count.sync="midasCount"></my-counter>
+        <!-- <my-counter :outer-count="outerCount" @update:outer-count="val => outerCount = val"></my-counter> -->
+        <h1>{{midasCount}}</h1>
+    </div>
+
+
+    <script>
+        Vue.component('my-counter', {
+            props: ['davidCount'],
+            data() {
+                return {
+                    innerCount: this.davidCount,
+                };
+            },
+            template: `
+                <div>
+                    <h1>{{innerCount}}</h1>
+                    <button @click="innerCount+=1">+1</button>
+                    <button @click="sync">sync</button>
+                </div>
+            `,
+            methods: {
+                sync() {
+                    this.$emit('update:davidCount', this.innerCount)
+                }
+            }
+        });
+
+
+        new Vue({
+            el: '#app',
+            data: {
+                midasCount: 10,
+            },
+            // methods: {
+            //     setOuterCount(count) {
+            //         this.midasCount = count
+            //     }
+            // }
+        });
+    </script>
+
+</body>
+
+</html>
