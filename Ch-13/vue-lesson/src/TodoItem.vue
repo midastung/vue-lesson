@@ -1,15 +1,11 @@
 <template>
-    <li class="todo-item"> 
-        {{data}}
-    </li>
+    <li>{{data}}</li>
 </template>
-
 <script>
 export default {
-    props: ['data'],
+    props:['data'],
 }
 </script>
-
 <style lang="">
     .todo-item{
         font-size: 1.5em;

@@ -1,39 +1,40 @@
-<script>
-import TodoInput from "./TodoInput.vue";
-import TodoItem from "./TodoItem.vue";
-export default {
-  components: {
-    TodoInput,
-    TodoItem,
-  },
-  data() {
-    return {
-      todos: [],
-    };
-  },
-  methods: {
-    addTodo(text) {
-      this.todos.push(text);
-    },
-    removeTodo(idx){
-      this.todos.splice(idx, 1);
-    }
-  },
-};
-</script>
-
 <template>
   <div>
-    <TodoInput @submit="addTodo" />
+    <TodoInput @goText="addTodo"/>
     <ul>
-      <TodoItem 
-        v-for="(todo, idx) in todos" 
-        :data="todo" 
-        @click.native="removeTodo(idx)"
-        />
+      <TodoItem
+       v-for="(todo,idx) in todos"
+       :data="todo"
+       @click.native="removeItem(idx)"
+       />
     </ul>
   </div>
 </template>
 
-<style lang="css">
+<script>
+import TodoInput from './TodoInput.vue'
+import TodoItem from './TodoItem.vue'
+export default {
+  data(){
+    return{
+      todos:[],
+    }
+  },
+  components:{
+    TodoInput,
+    TodoItem
+  },
+  methods:{
+    addTodo(text){
+      this.todos.push(text);
+    },
+    removeItem(idx){
+      this.todos.splice(idx, 1);
+    },
+  },
+};
+</script>
+
+<style lang="">
+  
 </style>

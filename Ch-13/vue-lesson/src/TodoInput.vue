@@ -1,21 +1,23 @@
 <template>
-    <form @submit.prevent="submit">
-        <input type="text" v-model="text">
-        <button type="submit">Submit</button>
-    </form>
+    <div>
+        <form @submit.prevent="textSubmit">
+            <input type="text" v-model="text">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </template>
 
 <script>
 export default {
     data(){
-        return{
+        return {
             text: '',
         }
     },
-    methods:{
-        submit(){
-            this.$emit('submit', this.text);
-            this.text = '';
+    methods: {
+        textSubmit(){
+            this.$emit('goText', this.text);
+            this.text = " ";
         }
     },
 }
