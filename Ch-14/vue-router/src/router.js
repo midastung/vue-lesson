@@ -22,13 +22,22 @@ export default new VueRouter({
                     component: About,
                     children: [
                         { path: '', component: AboutHome },
+                        //寫一個代表路徑的名稱
+                        // { path: 'us', name:'us', component: AboutUs },
+                        // { path: 'you', component: AboutYou }
                         { path: 'us', component: AboutUs },
-                        { path: 'you', component: AboutYou }
-                    ]
+                        { path: 'you', component: AboutYou },
+                        //components為複數
+                        { path: 'both', components:{
+                            default: AboutUs,
+                            another: AboutYou,
+                        }},
+                    ],
                 },
                 //:id 後加問號代表「可有可無」
                 {
                     path: '/products/:midasNum?',
+                    name: 'prod',
                     component: Products,
                 },
             ]

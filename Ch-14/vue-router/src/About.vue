@@ -2,8 +2,15 @@
     <div>
         <h1>About</h1>
         <router-link to="/about/us">Us</router-link>
+        <!-- 不用寫出整個路徑 -->
+        <!-- <router-link :to="{name: 'us'}">Us</router-link> -->
         <router-link to="/about/you">You</router-link>
-        <router-view/>
+         <!-- <router-link to="/about/both">Both</router-link> -->
+        <router-link :to="{name: 'prod', params:{midasNum:18}}">shoes</router-link>
+        <router-view name="default"/>
+        <!-- <router-view name="another"/> -->
+        <!-- <router-view name="a"/>
+        <router-view name="b"/> -->
     </div>
 </template>
 <script>
