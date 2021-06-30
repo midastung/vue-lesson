@@ -16,18 +16,20 @@ const products = {
     37:'Pants',
 };
 export default {
-  computed: {
-    id() {
-        //params為路徑的一部分
-        //return this.$route.params.midasNum;
-        return products[this.$route.params.midasNum]
+    props: ['id'],
+    // computed: {
+    //     id() {
+            //params為路徑的一部分
+            //return this.$route.params.midasNum;
+            // return products[this.$route.params.midasNum]
+        
 
-        //localhost:8080/#/products?id=18
-        //我想抓?後面的值，需要用到query
-        //query是問號("?")後面
-        // return products[this.$route.query.midasNum]
-    },
-  },
+            //localhost:8080/#/products?id=18
+            //我想抓?後面的值，需要用到query
+            //query是問號("?")後面
+            // return products[this.$route.query.midasNum]
+        //},
+    //},
 };
 </script>
 <style lang="">

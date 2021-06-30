@@ -11,6 +11,8 @@ import AboutHome from "./AboutHome.vue";
 Vue.use(VueRouter);
 //定義new VueRouter，傳入一物件--routes屬性，其中為陣列
 export default new VueRouter({
+    mode: 'hash', //帶井字號
+    // mode: 'history',
     routes: [
         //注意！路徑設定如果同時匹配到，瀏覽器會先選擇第一個路徑
         {
@@ -19,6 +21,7 @@ export default new VueRouter({
             children: [
                 {
                     path: '/about',
+                    alias: 'helloworld',
                     component: About,
                     children: [
                         { path: '', component: AboutHome },
@@ -28,18 +31,30 @@ export default new VueRouter({
                         { path: 'us', component: AboutUs },
                         { path: 'you', component: AboutYou },
                         //components為複數
-                        { path: 'both', components:{
-                            default: AboutUs,
-                            another: AboutYou,
-                        }},
+                        {
+                            path: 'both',
+                            // 根目錄下的2，絕對路徑
+                            // alias: '/2',
+                            // 也可以寫成陣列，絕對路徑'/2', 相對路徑'/about/2','/about/3'
+                            alias: ['/2', '2', '3'],
+                            components: {
+                                default: AboutUs,
+                                another: AboutYou,
+                            }
+                        },
                     ],
                 },
                 //:id 後加問號代表「可有可無」
                 {
-                    path: '/products/:midasNum?',
-                    name: 'prod',
+                    path: '/products/:id?',
+                    name: 'home',
                     component: Products,
-                },
+                    props: (route) => {
+                        return {
+                            id: route.params.id,
+                        }
+                    },
+                }
             ]
         },
 

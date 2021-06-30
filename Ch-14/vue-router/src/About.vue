@@ -6,11 +6,9 @@
         <!-- <router-link :to="{name: 'us'}">Us</router-link> -->
         <router-link to="/about/you">You</router-link>
          <!-- <router-link to="/about/both">Both</router-link> -->
-        <router-link :to="{name: 'prod', params:{midasNum:18}}">shoes</router-link>
+        <!-- <router-link :to="{name: 'prod', params:{midasNum:18}}">shoes</router-link> -->
         <router-view name="default"/>
-        <!-- <router-view name="another"/> -->
-        <!-- <router-view name="a"/>
-        <router-view name="b"/> -->
+        <router-view name="another"/>
     </div>
 </template>
 <script>
