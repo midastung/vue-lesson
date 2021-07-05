@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <!-- 使用3.0.1的vue -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/3.0.1/vuex.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- computed的count -->
+        <h1>{{count}}</h1>
+        <!-- 觸發on:click 執行addCount() -->
+        <button @click="addCount">Add</button>
+    </div>
+
+
+    <script>
+        const store = new Vuex.Store({
+            state: {
+                count: 0,
+            },
+            mutations: {
+                addCount(state) {
+                    state.count += 1;
+                },
+            },
+        });
+
+        new Vue({
+            el: '#app',
+            store: store,
+            computed: {
+                count() {
+                    return this.$store.state.count;
+                },
+            },
+            methods: {
+                addCount() {
+                    //執行mutation裏的'addCount')
+                    this.$store.commit('addCount');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
