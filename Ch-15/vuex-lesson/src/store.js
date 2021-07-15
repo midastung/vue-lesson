@@ -4,44 +4,68 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-const url = '';
-// const store = new Store({...})
-const store = new Vuex.Store({
+//可以細分成數個物件來管理state
+const todos = {
+  namespaced: true,
   state: {
-    loading: false,
-    todos: [],
+    list:[],
   },
-  mutations:{
-    setTodos(state, todos){
-        state.todos = todos;
+  mutations: {
+    //自己的state
+    setList(state, payload){
+      //...
     },
-    setLoading(state, loading){
-        state.loading - loading;
+  },
+  getters:{
+    //(自state, 自getters, 全域State, 眾getters)
+    getLength(state, getters, rootState, rootGetters){
+      // 若想要叫member物件裏的state
+        rootState.member.username
     }
   },
-  //非同步執行
-  // actions不能直接改state裏的屬性
-  actions: {
-    fetchTodos({commit, dispatch}, payload) {
-      //必須是真的promise，如jquery不是原生的promise
-      return new Promise(resolve => {
-        //多次commit
-        commit('setLoading', true);
-    
-        fetch(`${url}/todos`)
-          .then(rs => rs.json())
-          .then(todos => {
-              commit('setTodos', todos);
-              commit('setLoading', false);
-              //也可以呼叫多個actions函式
-              dispatch('fetchUserInfo');
-              resolve();
-          })
-      })
-    },
-    fetchUserInfo(){
+  actions:{
+    // fetchList({commit, dispatch, state, getters, rootState, rootGetters})
+    fetchList(context){
+      const {commit, dispatch, state, getters, rootState, rootGetters} = context;  
+    }
+  }
+};
 
+const member = {
+  namespaced: true,
+  state: {
+    username: '',
+    rank:0,
+  },
+  mutations:{},
+  actions:{
+    //  假設有重複名稱的actions函式的話，在App.vue呼叫執行時，則會兩者皆執行。
+    fetchList(){
+      //...
+    },
+    //如果想跨取其他物件的mutations...
+    fetchList({commit}){
+      //取他人
+      commit('todos/setList', [1,2,3,4], {root: true});
+      //取自己
+      commit('setList', [1,2,3,4]);
     }
+  },
+};
+
+const store = new Vuex.Store({
+  //state會因為專案越來越大變得複雜起來
+  // state: {
+  //   todos: [],
+  //   cart: [],
+  //   products: [],
+  //   username: '',
+  //   rank: 0,
+  //   notification: [], 
+  // },
+  modules:{
+    todos: todos,
+    member: member,
   }
 })
 

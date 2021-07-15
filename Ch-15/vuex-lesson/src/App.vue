@@ -1,29 +1,43 @@
 <template>
   <div>
-    <h1>{{totalCount}}</h1>
-    <!-- <button @click="addCount">Add</button> -->
-    <!-- mapMutations payload寫法 -->
-    <button @click="add(2)">Add</button>
+   
   </div>
 </template>
 <script>
-//import store from './store'
 
-//vuex有一些方便的工具，要切記在上層要注入store
-import {mapState, mapMutations, mapGetters, mapActions} from 'vuex';
+import {mapSate} from 'vuex';
 
 export default {
-  mounted(){
-    //mutiations是用commit
-    //actions是用dispatch
-    this.$store.dispatch('fetchTodos', {id:2});
+  mounted() {
+    //  假設有重複名稱的actions函式的話，在App.vue呼叫執行時，則會兩者皆執行。
+    this.$store.dispatch('fetchList');
+    //  但是在組件裏加上了 -> namespaced: true
+    this.$store.dispatch('todos/fetchList');
+    this.$store.dispatch('member/fetchList');
+
+
   },
-  methods: {
-    // ...mapActions(['fetchTodos']),
-    ...mapActions({
-      //取替代名
-      fetch: 'fetchTodos',
-    }),
+  computed: {
+    //想使用mapState來寫的話呢？
+    ...mapSate([
+      'todos/list',
+      'todos/input',
+      'todos/current',
+      'todos/loading',
+    ]),
+
+    //可以寫簡單一點
+    ...mapSate('todos',[
+      'list',
+      'input',
+      'current',
+      'loading',
+    ]),
+
+
+    todoList(){
+      return this.$store.state.todos.list;
+    }
   },
 }
 </script>
